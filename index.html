@@ -232,7 +232,7 @@ select{width:100%;min-height:3rem;padding:.5rem .8rem;background:var(--ink);colo
 .total s{color:var(--ash);font-size:1.1rem;font-weight:400;margin-right:.4rem}
 .d-go{display:grid;gap:.7rem}
 .spooky{margin:0 0 1rem;padding:.9rem 1rem;border:1px dashed var(--blood-hi);background:rgba(125,20,32,.2)}
-.spooky b{display:block;font:400 1.7rem/1 var(--fraktur);margin-bottom:.35rem}
+.spooky b{display:block;font-family:inherit;font-weight:600;font-size:1.35rem;line-height:1.2;margin-bottom:.35rem}
 .spooky span{color:var(--ash);font-size:1.05rem;line-height:1.45}
 .d-note{color:var(--ash);font-style:italic;font-size:1.05rem;margin-top:1rem}
 
@@ -453,12 +453,12 @@ const COVERS = [
 ];
 /* each beat: {title, bpm, key, mood, file:"name.mp3", url:"shop link", sold:false} */
 const BEATS = [
-  {title:"sadness",      file:"sadness.mp3", img:"t-sadness.jpg",       url:"https://ko-fi.com/s/4740ba24a8"},
-  {title:"russia winter",file:"russia-winter.mp3", img:"t-russia-winter.jpg", url:"https://ko-fi.com/s/348b948799"},
-  {title:"psycho",       file:"psycho.mp3", img:"t-psycho.jpg",        url:"https://ko-fi.com/s/c9e5b32605"},
-  {title:"pills",        file:"pills.mp3", img:"t-pills.jpg",         url:"https://ko-fi.com/s/97f66d397a"},
-  {title:"egypt",        file:"egypt.mp3", img:"t-egypt.jpg",         url:"https://ko-fi.com/s/77175b6a99"},
-  {title:"darkness",     file:"darkness.mp3", img:"t-darkness.jpg",      url:"https://ko-fi.com/s/543d3d95a8"}
+  {title:"sadness",      file:"sadness.mp3", img:"t-sadness.jpg", big:"beats/b-sadness.jpg",       url:"https://ko-fi.com/s/4740ba24a8"},
+  {title:"russia winter",file:"russia-winter.mp3", img:"t-russia-winter.jpg", big:"beats/b-russia-winter.jpg", url:"https://ko-fi.com/s/348b948799"},
+  {title:"psycho",       file:"psycho.mp3", img:"t-psycho.jpg", big:"beats/b-psycho.jpg",        url:"https://ko-fi.com/s/c9e5b32605"},
+  {title:"pills",        file:"pills.mp3", img:"t-pills.jpg", big:"beats/b-pills.jpg",         url:"https://ko-fi.com/s/97f66d397a"},
+  {title:"egypt",        file:"egypt.mp3", img:"t-egypt.jpg", big:"beats/b-egypt.jpg",         url:"https://ko-fi.com/s/77175b6a99"},
+  {title:"darkness",     file:"darkness.mp3", img:"t-darkness.jpg", big:"beats/b-darkness.jpg",      url:"https://ko-fi.com/s/543d3d95a8"}
 ];
 const COVER_PRICE = 39;          // ready-made cover alone
 const CUSTOM_COVER_PRICE = 66;   // cover made to order
@@ -585,6 +585,7 @@ $("beatCards").append(card({ name:"Custom beat", price:CUSTOM_BEAT_FROM, from:tr
 /* dialogs */
 const dlg = $("order"), body = $("orderBody");
 function head(title, sub) {
+  dlg.style.width = "";
   body.innerHTML = "";
   const cr = el("img", "d-crest"); cr.src = "crest.webp"; cr.alt = ""; body.append(cr);
   const h = el("div", "d-head"), t = el("div");
@@ -618,6 +619,7 @@ function payBlock(total, was, subject, text, quote, url) {
 
 function openBeat(beat, pick) {
   head(beat ? beat.title : "Beat license", "Choose how you will use the beat");
+  if (beat && beat.big) { const im = el("img"); im.src = beat.big; im.alt = beat.title; im.width = 500; im.height = 500; im.style.cssText = "display:block;width:min(100%,500px);height:auto;aspect-ratio:1;object-fit:cover;margin:1rem auto;border:1px solid var(--rule-hi)"; body.append(im); }
   let chosenBeat = beat;
   const avail = BEATS.filter(b => !b.sold);
   if (!beat && avail.length) {
@@ -648,7 +650,7 @@ function openBeat(beat, pick) {
 
 function openCover(cover) {
   head(cover.title || "Cover", "Ready-made cover, sold once");
-  if (cover && cover.src) { const im = el("img"); im.src = cover.src; im.alt = ""; im.style.cssText = "width:9rem;aspect-ratio:1;object-fit:cover;margin:1rem auto 0;border:1px solid var(--rule-hi)"; body.append(im); }
+  if (cover && cover.src) { const im = el("img"); im.src = cover.src; im.alt = ""; dlg.style.width = "min(100% - 1.5rem,50rem)"; im.style.cssText = "display:block;width:min(100%,44rem);aspect-ratio:1;object-fit:cover;margin:1rem auto 0;border:1px solid var(--rule-hi)"; body.append(im); }
   body.append(el("div", null)); body.lastChild.style.height = "1rem";
   body.append(rulesBox("What you get", COVER_RULES));
   const dyn = el("div"); body.append(dyn);
