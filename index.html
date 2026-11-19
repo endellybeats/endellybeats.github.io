@@ -121,6 +121,13 @@ nav a:hover{color:var(--bone)}
 .tracks{list-style:none;margin:0;padding:0}
 .track{display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;align-items:center;padding:1.05rem .6rem;transition:background .2s}
 .track+.track{border-top:1px solid var(--rule)}
+.track[hidden]{display:none}
+.search{display:block;margin:0 .6rem .6rem}
+.search input{width:100%;padding:.8rem 1rem;background:rgba(0,0,0,.35);border:1px solid var(--rule);color:inherit;font:inherit;font-size:1.1rem;border-radius:2px}
+.search input:focus-visible{outline:2px solid var(--ash);outline-offset:2px}
+.sr{position:absolute;left:-9999px}
+.t-thumb{width:56px;height:56px;object-fit:cover;border:1px solid var(--rule)}
+.track.has-img{grid-template-columns:auto auto 1fr auto}
 .track:hover{background:rgba(233,227,214,.04)}
 .play{width:3.5rem;height:3.5rem;border-radius:50%;border:1px solid var(--rule-hi);background:transparent;color:var(--bone);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,background .2s}
 .play svg{width:1.05rem;height:1.05rem;fill:currentColor}
@@ -253,7 +260,8 @@ select{width:100%;min-height:3rem;padding:.5rem .8rem;background:var(--ink);colo
   .hero .tower,.hero .cath{opacity:.3}
   .grid{gap:1.1rem}
   .tile .btn{font-size:.98rem;padding-inline:.6rem}
-  .track{grid-template-columns:auto 1fr;grid-template-areas:"play info" "buy buy";padding-inline:.1rem}
+  .track,.track.has-img{grid-template-columns:auto 1fr;grid-template-areas:"play info" "buy buy";padding-inline:.1rem}
+  .track .t-thumb{display:none}
   .track .play{grid-area:play}.track .info{grid-area:info}.track .buy{grid-area:buy}
   .track .buy .btn{width:100%}
   .player{padding:1.2rem 1rem}
@@ -333,14 +341,16 @@ select{width:100%;min-height:3rem;padding:.5rem .8rem;background:var(--ink);colo
     <div class="head">
       <img class="crest" src="crest.webp" alt="" aria-hidden="true">
       <h2 id="beats-title">Beats</h2>
-      <p>Dark trap, ambient and rage. Press play, then Buy.</p>
+      <p>Press play, then Buy.</p>
     </div>
     <div class="player">
       <img class="pc tl" src="corner.webp" alt="" aria-hidden="true">
       <img class="pc tr" src="corner.webp" alt="" aria-hidden="true">
       <img class="pc bl" src="corner.webp" alt="" aria-hidden="true">
       <img class="pc br" src="corner.webp" alt="" aria-hidden="true">
+      <label class="search"><span class="sr">Search beats</span><input type="search" id="beatSearch" placeholder="Search beats by name" autocomplete="off"></label>
       <ul class="tracks" id="tracks"></ul>
+      <p class="empty" id="beats-none" hidden>No beats found. Try another word, or <a href="#contact">ask me for a custom beat</a>.</p>
       <p class="empty" id="beats-empty" hidden>New beats are on the way. <a id="beatsMail" href="#contact">Write to me</a> and I will send you the list.</p>
     </div>
     <p class="note">Previews here are MP3 with extra voice tags. The file you buy is clean apart from one short producer tag.</p>
@@ -443,12 +453,12 @@ const COVERS = [
 ];
 /* each beat: {title, bpm, key, mood, file:"name.mp3", url:"shop link", sold:false} */
 const BEATS = [
-  {title:"sadness",      mood:"Dark trap", file:"sadness.mp3",       url:"https://ko-fi.com/s/4740ba24a8"},
-  {title:"russia winter",mood:"Dark trap", file:"russia-winter.mp3", url:"https://ko-fi.com/s/348b948799"},
-  {title:"psycho",       mood:"Dark trap", file:"psycho.mp3",        url:"https://ko-fi.com/s/c9e5b32605"},
-  {title:"pills",        mood:"Dark trap", file:"pills.mp3",         url:"https://ko-fi.com/s/97f66d397a"},
-  {title:"egypt",        mood:"Dark trap", file:"egypt.mp3",         url:"https://ko-fi.com/s/77175b6a99"},
-  {title:"darkness",     mood:"Dark trap", file:"darkness.mp3",      url:"https://ko-fi.com/s/543d3d95a8"}
+  {title:"sadness",      file:"sadness.mp3", img:"t-sadness.jpg",       url:"https://ko-fi.com/s/4740ba24a8"},
+  {title:"russia winter",file:"russia-winter.mp3", img:"t-russia-winter.jpg", url:"https://ko-fi.com/s/348b948799"},
+  {title:"psycho",       file:"psycho.mp3", img:"t-psycho.jpg",        url:"https://ko-fi.com/s/c9e5b32605"},
+  {title:"pills",        file:"pills.mp3", img:"t-pills.jpg",         url:"https://ko-fi.com/s/97f66d397a"},
+  {title:"egypt",        file:"egypt.mp3", img:"t-egypt.jpg",         url:"https://ko-fi.com/s/77175b6a99"},
+  {title:"darkness",     file:"darkness.mp3", img:"t-darkness.jpg",      url:"https://ko-fi.com/s/543d3d95a8"}
 ];
 const COVER_PRICE = 39;          // ready-made cover alone
 const CUSTOM_COVER_PRICE = 66;   // cover made to order
@@ -537,11 +547,19 @@ BEATS.forEach(beat => {
   b.addEventListener("click", () => toggle(beat));
   if (!beat.file) { b.disabled = true; b.title = "Preview coming soon"; }
   const info = el("div", "info");
-  info.append(el("div", "t-title", beat.title), el("div", "t-meta", [beat.mood, beat.bpm && beat.bpm + " BPM", beat.key].filter(Boolean).join(", ")));
+  info.append(el("div", "t-title", beat.title));
+  const meta = [beat.bpm && beat.bpm + " BPM", beat.key].filter(Boolean).join(", "); if (meta) info.append(el("div", "t-meta", meta));
   const buy = el("div", "buy");
   if (beat.sold) { buy.className += " sold"; buy.textContent = "Sold"; }
   else { const btn = el("button", "btn small", "Buy from $" + lowest); btn.type = "button"; btn.addEventListener("click", () => openBeat(beat)); buy.append(btn); }
-  li.append(b, info, buy); $("tracks").append(li);
+  if (beat.img) { li.classList.add("has-img"); const th = el("img", "t-thumb"); th.src = beat.img; th.alt = ""; th.loading = "lazy"; li.append(b, th, info, buy); }
+  else li.append(b, info, buy);
+  li.dataset.name = beat.title.toLowerCase(); $("tracks").append(li);
+});
+$("beatSearch").addEventListener("input", e => {
+  const q = e.target.value.trim().toLowerCase(); let n = 0;
+  document.querySelectorAll("#tracks .track").forEach(li => { const ok = !q || li.dataset.name.includes(q); li.hidden = !ok; if (ok) n++; });
+  $("beats-none").hidden = n > 0;
 });
 if (!BEATS.length) { $("tracks").hidden = true; $("beats-empty").hidden = false; }
 
