@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>endelly: dark cover art and beats</title>
+<meta name="description" content="Dark cover art and dark trap, ambient and rage beats. Buy a cover or lease a beat.">
+<meta name="theme-color" content="#050505">
+<style>
+@font-face{font-family:"Fraktur";font-display:swap;src:url(unifrakturcook-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Fell";font-display:swap;src:url(im-fell-english-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Fell";font-style:italic;font-display:swap;src:url(im-fell-english-latin-400-italic.woff2) format("woff2")}
+@font-face{font-family:"Garamond";font-weight:400;font-display:swap;src:url(eb-garamond-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Garamond";font-weight:500;font-display:swap;src:url(eb-garamond-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Garamond";font-weight:600;font-display:swap;src:url(eb-garamond-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Garamond";font-weight:400;font-style:italic;font-display:swap;src:url(eb-garamond-latin-400-italic.woff2) format("woff2")}
+
+:root{
+  --ink:#050505; --soot:#0c0b0b; --bone:#e9e3d6; --ash:#a39e93; --rule:rgba(233,227,214,.16); --rule-hi:rgba(233,227,214,.42);
+  --blood:#7d1420; --blood-hi:#b01f2e;
+  --fraktur:"Fraktur","Old English Text MT",serif;
+  --serif:"Garamond",Garamond,"Times New Roman",serif;
+  --book:"Fell","Garamond",serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:4.5rem;background:var(--ink)}
+body{margin:0;background:var(--ink);color:var(--bone);font:400 1.2rem/1.6 var(--serif);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.08;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit}
+p{margin:0}
+h1,h2,h3{margin:0;font-weight:400}
+:focus-visible{outline:2px solid var(--bone);outline-offset:4px}
+.wrap{width:min(100% - 2.5rem,76rem);margin-inline:auto}
+.narrow{width:min(100% - 2.5rem,46rem);margin-inline:auto}
+section{position:relative;padding-block:clamp(5rem,10vw,8rem);isolation:isolate;overflow:hidden}
+.deco{position:absolute;z-index:-1;pointer-events:none}
+
+/* section heading: crest, fraktur title, italic line */
+.head{text-align:center;margin-bottom:clamp(2.6rem,5vw,3.6rem)}
+.head .crest{width:min(30rem,90%);margin:0 auto 1.2rem;opacity:.9}
+.head h2{font:400 clamp(3.6rem,10vw,6.2rem)/.95 var(--fraktur)}
+.head p{font-style:italic;color:var(--ash);margin-top:.9rem;font-size:1.25rem}
+.head .orn{width:13rem;margin:.9rem auto 0;opacity:.7}
+
+/* buttons */
+.btn{--c:.55rem;position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:3.3rem;padding:.7rem 1.8rem;border:0;cursor:pointer;
+  font:600 1.15rem/1.1 var(--serif);letter-spacing:.02em;text-decoration:none;color:var(--ink);background:var(--bone);
+  clip-path:polygon(var(--c) 0,calc(100% - var(--c)) 0,100% var(--c),100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,var(--c) 100%,0 calc(100% - var(--c)),0 var(--c));
+  transition:background .2s,color .2s}
+.btn:hover{background:#fff}
+.btn.ghost{color:var(--bone);background:var(--rule-hi)}
+.btn.ghost::before{content:"";position:absolute;inset:1px;z-index:-1;background:var(--ink);clip-path:inherit}
+.btn.ghost:hover{background:var(--bone)}
+.btn.blood{background:var(--blood);color:#fff}
+.btn.blood:hover{background:var(--blood-hi)}
+.btn.small{min-height:2.8rem;padding:.45rem 1.2rem;font-size:1.05rem;--c:.42rem}
+.btn.wide{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* header */
+header.top{position:sticky;top:0;z-index:40;background:rgba(5,5,5,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:.4rem 1.5rem;min-height:4.2rem;flex-wrap:wrap;padding-block:.3rem}
+.logo{display:flex;align-items:center;gap:.55rem;font:400 2.1rem/1 var(--fraktur);text-decoration:none}
+.logo img{width:1.9rem;height:2.3rem;object-fit:contain}
+nav ul{display:flex;align-items:center;gap:.15rem;list-style:none;margin:0;padding:0}
+nav a{display:block;padding:.6rem .75rem;text-decoration:none;color:var(--ash);font-size:1.15rem}
+nav a:hover{color:var(--bone)}
+
+/* hero */
+.hero{min-height:calc(100svh - 4.2rem);display:grid;place-items:center;text-align:center;padding-block:5rem}
+.hero .bg{inset:0;background:url(castle.jpg) center 30%/cover;opacity:.38;filter:grayscale(1) contrast(1.2);
+  -webkit-mask-image:radial-gradient(ellipse 72% 68% at 50% 45%,#000 30%,transparent 82%);mask-image:radial-gradient(ellipse 72% 68% at 50% 45%,#000 30%,transparent 82%)}
+.hero .web{top:0;left:50%;width:min(115%,78rem);transform:translateX(-50%);opacity:.32}
+.hero .tower{bottom:0;left:max(-2rem,calc(50% - 46rem));width:clamp(9rem,17vw,15rem);opacity:.5}
+.hero .cath{bottom:0;right:max(-2rem,calc(50% - 46rem));width:clamp(9rem,17vw,15rem);opacity:.5}
+.hero .fog{inset:auto 0 0 0;height:40%;background:linear-gradient(transparent,var(--ink))}
+.corner{position:absolute;z-index:1;width:clamp(4.5rem,11vw,8.5rem);opacity:.9;pointer-events:none}
+.corner.tl{top:1.2rem;left:1.2rem}.corner.tr{top:1.2rem;right:1.2rem;transform:scaleX(-1)}
+.corner.bl{bottom:1.2rem;left:1.2rem;transform:scaleY(-1)}.corner.br{bottom:1.2rem;right:1.2rem;transform:scale(-1)}
+.hero .inner{position:relative;z-index:2;animation:emerge 1.8s cubic-bezier(.2,.6,.2,1) both}
+.hero .crest{width:min(34rem,88vw);margin:0 auto 1.4rem}
+.hero h1{font:400 clamp(5.8rem,21vw,15rem)/.8 var(--fraktur);letter-spacing:.01em;text-shadow:0 0 40px #000,0 0 80px #000}
+.quote{margin:3.2rem auto 0;max-width:34rem}
+.quote .who{font:400 clamp(1.4rem,3.4vw,1.95rem)/1.3 var(--book);color:var(--bone);letter-spacing:.03em}
+.quote .style{margin-top:.45rem;font:italic 400 clamp(1.15rem,2.6vw,1.45rem)/1.3 var(--book);color:var(--ash);letter-spacing:.12em}
+.hero .cta{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:2.4rem}
+.hero .deal{display:inline-block;margin-top:1.8rem;padding:.45rem 1.1rem;border:1px solid var(--blood-hi);color:var(--bone);font-size:1.1rem;text-decoration:none;background:rgba(125,20,32,.25)}
+.hero .deal b{color:#fff}
+@keyframes emerge{from{opacity:0;filter:blur(8px);transform:translateY(12px)}to{opacity:1;filter:none;transform:none}}
+
+/* covers grid */
+.covers{background:var(--soot);border-block:1px solid var(--rule)}
+.covers .tex{inset:0;background:url(news.webp) center/cover;opacity:.05}
+.covers .webc{top:0;right:0;width:min(30rem,55%);opacity:.3}
+.covers .webl{top:0;left:0;width:min(30rem,55%);opacity:.3;transform:scaleX(-1)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.2rem,2.4vw,2rem)}
+.tile{margin:0;display:flex;flex-direction:column}
+.art{position:relative;aspect-ratio:1;background:#000;border:1px solid var(--rule-hi);outline:1px solid var(--rule);outline-offset:4px;overflow:hidden}
+.art img.pic{width:100%;height:100%;object-fit:cover}
+.art .fr{position:absolute;inset:-2px;width:calc(100% + 4px);height:calc(100% + 4px);pointer-events:none;opacity:.95;z-index:2}
+.art .soon{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:.6rem;color:var(--ash);font-style:italic;
+  background:radial-gradient(circle at 50% 45%,rgba(233,227,214,.06),transparent 65%)}
+.art .soon img{width:38%;opacity:.35}
+.tile figcaption{display:flex;flex-direction:column;align-items:center;gap:.55rem;margin-top:.9rem;text-align:center}
+.tile .nm{font:600 1.2rem/1.2 var(--serif)}
+.tile .btn{width:100%}
+.covers .more{margin-top:3rem;text-align:center}
+.covers .more p{color:var(--ash);font-style:italic;margin-bottom:1rem}
+
+/* beats */
+.beats .forest{inset:0;background:url(forest2.webp) center/cover;opacity:.12;filter:grayscale(1);
+  -webkit-mask-image:linear-gradient(transparent,#000 25%,#000 70%,transparent);mask-image:linear-gradient(transparent,#000 25%,#000 70%,transparent)}
+.beats .vineL{left:max(.5rem,calc(50% - 44rem));top:8rem;width:7rem;opacity:.45}
+.beats .vineR{right:max(.5rem,calc(50% - 44rem));top:8rem;width:7rem;opacity:.45;transform:scaleX(-1)}
+.player{position:relative;max-width:58rem;margin-inline:auto;padding:clamp(1.4rem,3vw,2.4rem);background:rgba(5,5,5,.78);border:1px solid var(--rule-hi);outline:1px solid var(--rule);outline-offset:-8px}
+.player .pc{position:absolute;width:clamp(3.5rem,7vw,5.5rem);opacity:.9;pointer-events:none}
+.player .pc.tl{top:-.9rem;left:-.9rem}.player .pc.tr{top:-.9rem;right:-.9rem;transform:scaleX(-1)}
+.player .pc.bl{bottom:-.9rem;left:-.9rem;transform:scaleY(-1)}.player .pc.br{bottom:-.9rem;right:-.9rem;transform:scale(-1)}
+.tracks{list-style:none;margin:0;padding:0}
+.track{display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;align-items:center;padding:1.05rem .6rem;transition:background .2s}
+.track+.track{border-top:1px solid var(--rule)}
+.track:hover{background:rgba(233,227,214,.04)}
+.play{width:3.5rem;height:3.5rem;border-radius:50%;border:1px solid var(--rule-hi);background:transparent;color:var(--bone);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,background .2s}
+.play svg{width:1.05rem;height:1.05rem;fill:currentColor}
+.play:hover:not(:disabled){border-color:var(--bone)}
+.play[aria-pressed="true"]{background:var(--blood);border-color:var(--blood-hi)}
+.play:disabled{opacity:.35;cursor:not-allowed}
+.t-title{font:600 clamp(1.35rem,3vw,1.6rem)/1.15 var(--serif)}
+.t-meta{color:var(--ash);font-style:italic;font-size:1.05rem}
+.sold{color:var(--ash);font-style:italic}
+.empty{text-align:center;padding:2rem 1rem;color:var(--ash);font-style:italic}
+.empty a{color:var(--bone)}
+.beats .note{text-align:center;color:var(--ash);font-style:italic;margin-top:1.4rem;font-size:1.08rem}
+
+/* prices */
+.prices{background:var(--soot);border-block:1px solid var(--rule)}
+.prices .tex{inset:0;background:url(paper.webp) center/cover;opacity:.07}
+.prices .castle2{left:50%;bottom:-4rem;width:min(70rem,160%);transform:translateX(-50%);opacity:.08}
+.group{margin-top:3.5rem}
+.group:first-of-type{margin-top:0}
+.group>h3{text-align:center;font:400 clamp(2.6rem,6vw,3.4rem)/1 var(--fraktur);margin-bottom:.4rem}
+.group>.orn{width:11rem;margin:0 auto 2.2rem;opacity:.65}
+.cards{display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr))}
+.card{position:relative;isolation:isolate;display:flex;flex-direction:column;text-align:center;padding:4.4rem 3.3rem 4.3rem;min-height:28rem}
+.card>.fr{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:-1;opacity:.85}
+.card::before{content:"";position:absolute;inset:1.9rem 1.8rem;z-index:-2;background:rgba(5,5,5,.85)}
+.card h4{margin:0;font:600 1.5rem/1.15 var(--serif)}
+.card .amount{font:500 3rem/1 var(--serif);margin:.9rem 0 .2rem}
+.card .amount small{font-size:1.05rem;font-style:italic;color:var(--ash);font-weight:400}
+.card .was{color:var(--ash);text-decoration:line-through;font-size:1.1rem}
+.card ul{list-style:none;margin:1rem 0 1.4rem;padding:0;flex:1;text-align:left}
+.card li{padding:.22rem 0 .22rem 1.3rem;position:relative;color:var(--ash);font-size:1.05rem;line-height:1.4}
+.card li::before{content:"\2020";position:absolute;left:.1rem;color:var(--blood-hi)}
+.card.promo::before{background:linear-gradient(rgba(125,20,32,.45),rgba(5,5,5,.9))}
+.card .ribbon{display:inline-block;margin:0 auto .7rem;padding:.2rem .8rem;background:var(--blood-hi);color:#fff;font-weight:600;font-size:.98rem}
+
+/* faq */
+.help .webc{right:0;top:0;width:min(30rem,60%);opacity:.25}
+.help .cath{left:max(0rem,calc(50% - 44rem));bottom:0;width:15rem;opacity:.28}
+.help .tower{right:max(0rem,calc(50% - 44rem));bottom:0;width:13rem;opacity:.28}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq details:first-child{border-top:1px solid var(--rule-hi)}
+.faq summary{list-style:none;cursor:pointer;padding:1.2rem 3rem 1.2rem .3rem;position:relative;font:600 1.3rem/1.35 var(--serif)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:.6rem;top:50%;width:.7rem;height:.7rem;border-right:1px solid var(--bone);border-bottom:1px solid var(--bone);transform:translateY(-70%) rotate(45deg);transition:transform .2s}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{padding:0 .3rem 1.4rem;color:var(--ash);max-width:40rem}
+
+/* contact */
+.contact{text-align:center;background:var(--soot);border-top:1px solid var(--rule)}
+.contact .island{left:50%;bottom:-3rem;width:min(56rem,150%);transform:translateX(-50%);opacity:.12}
+.frame-box{position:relative;isolation:isolate;width:min(100%,34rem);margin-inline:auto;padding:clamp(4.5rem,11vw,6.5rem) clamp(2.6rem,8vw,4.8rem)}
+.frame-box>.fr{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;opacity:.9;z-index:-1}
+.contact .eye{width:4.5rem;margin:0 auto .8rem}
+.contact h2{font:400 clamp(2.8rem,8vw,3.8rem)/1 var(--fraktur)}
+.contact p{color:var(--ash);font-style:italic;margin-top:.6rem}
+.contact .mail{display:inline-block;margin-top:1.3rem;font:500 clamp(1.15rem,3.6vw,1.45rem)/1.3 var(--serif);word-break:break-all;text-decoration:none;border-bottom:1px solid var(--blood-hi);padding-bottom:.15rem}
+.contact .links{display:flex;justify-content:center;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem}
+
+footer{text-align:center;color:var(--ash);font-size:1rem;padding-bottom:2.5rem;background:var(--soot)}
+footer .graves{width:min(100%,58rem);margin:0 auto;opacity:.6;-webkit-mask-image:linear-gradient(to right,transparent,#000 18%,#000 82%,transparent);mask-image:linear-gradient(to right,transparent,#000 18%,#000 82%,transparent)}
+footer p{margin-top:-2rem;position:relative}
+
+/* player bar */
+#bar{position:fixed;z-index:50;left:0;right:0;bottom:0;background:rgba(10,9,9,.97);border-top:1px solid var(--rule-hi);padding:.65rem 0}
+#bar[hidden]{display:none}
+#bar .wrap{display:grid;grid-template-columns:auto auto 1fr auto;gap:1rem;align-items:center}
+#barToggle{width:2.8rem;height:2.8rem;border-radius:50%;border:0;background:var(--bone);color:var(--ink);display:grid;place-items:center;cursor:pointer}
+#barToggle svg{width:1rem;height:1rem;fill:currentColor}
+#barTitle{font:600 1.2rem/1 var(--serif)}
+#seek{width:100%;accent-color:var(--blood-hi);height:1.6rem}
+#barTime{color:var(--ash);font-size:1rem;font-variant-numeric:tabular-nums}
+body.playing{padding-bottom:4.4rem}
+
+/* dialogs */
+dialog{border:1px solid var(--rule-hi);outline:1px solid var(--rule);outline-offset:-8px;background:var(--soot) url(paper.webp) center/cover;background-blend-mode:soft-light;color:var(--bone);padding:0;width:min(100% - 1.5rem,35rem);max-height:calc(100svh - 2rem)}
+dialog::backdrop{background:rgba(0,0,0,.85)}
+.d-in{padding:1.9rem 1.7rem 1.7rem}
+.d-crest{width:16rem;margin:0 auto .6rem;opacity:.8}
+.d-head{display:flex;justify-content:space-between;align-items:start;gap:1rem}
+.d-head h2{font:400 2.6rem/1 var(--fraktur)}
+.d-head p{color:var(--ash);font-style:italic;margin-top:.35rem}
+.x{flex:none;width:2.8rem;height:2.8rem;border-radius:50%;border:1px solid var(--rule-hi);background:none;color:var(--bone);font-size:1.5rem;line-height:1;cursor:pointer}
+.x:hover{border-color:var(--bone)}
+.d-label{display:block;font-weight:600;margin:1.2rem 0 .5rem}
+select{width:100%;min-height:3rem;padding:.5rem .8rem;background:var(--ink);color:var(--bone);border:1px solid var(--rule-hi);font:inherit;font-size:1.1rem}
+.opts{display:grid;gap:.5rem;margin:1rem 0}
+.opt{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;padding:.75rem 1rem;border:1px solid var(--rule);cursor:pointer;font-weight:600;font-size:1.12rem;background:rgba(5,5,5,.6)}
+.opt:has(input:checked){border-color:var(--bone);background:rgba(233,227,214,.07)}
+.opt input{width:1.15rem;height:1.15rem;accent-color:var(--blood-hi);margin:0}
+.opt:has(input:focus-visible){outline:2px solid var(--bone);outline-offset:2px}
+.rules{margin:0 0 1.1rem;padding:1rem 1.1rem;border:1px solid var(--rule);background:rgba(5,5,5,.6)}
+.rules strong{display:block;margin-bottom:.35rem}
+.rules ul{margin:0;padding:0;list-style:none}
+.rules li{position:relative;padding:.15rem 0 .15rem 1.3rem;color:var(--ash);font-size:1.05rem;line-height:1.45}
+.rules li::before{content:"\2020";position:absolute;left:.1rem;color:var(--blood-hi)}
+.addon{display:grid;grid-template-columns:auto 1fr;gap:.8rem;align-items:start;padding:.9rem 1rem;border:1px solid var(--blood-hi);background:rgba(125,20,32,.22);cursor:pointer;margin-bottom:1.1rem}
+.addon input{width:1.2rem;height:1.2rem;margin:.25rem 0 0;accent-color:var(--blood-hi)}
+.addon b{display:block}
+.addon span{color:var(--ash);font-size:1.02rem}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--rule-hi);padding-top:.9rem;margin-bottom:1rem;font-size:1.25rem;font-weight:600}
+.total .sum{font-size:1.9rem;font-weight:500}
+.total s{color:var(--ash);font-size:1.1rem;font-weight:400;margin-right:.4rem}
+.d-go{display:grid;gap:.7rem}
+.spooky{margin:0 0 1rem;padding:.9rem 1rem;border:1px dashed var(--blood-hi);background:rgba(125,20,32,.2)}
+.spooky b{display:block;font:400 1.7rem/1 var(--fraktur);margin-bottom:.35rem}
+.spooky span{color:var(--ash);font-size:1.05rem;line-height:1.45}
+.d-note{color:var(--ash);font-style:italic;font-size:1.05rem;margin-top:1rem}
+
+.form{display:grid;gap:.9rem;margin-top:1.2rem}
+.form label{display:grid;gap:.3rem;font-weight:600;font-size:1.08rem}
+.form label small{font-weight:400;font-style:italic;color:var(--ash);font-size:1rem}
+.form input,.form textarea{width:100%;padding:.65rem .8rem;background:rgba(5,5,5,.75);color:var(--bone);border:1px solid var(--rule-hi);font:400 1.1rem/1.4 var(--serif)}
+.form textarea{min-height:6.5rem;resize:vertical}
+.form input:focus,.form textarea:focus{outline:2px solid var(--bone);outline-offset:1px}
+.form .row2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.done{text-align:center;padding:1.5rem .5rem}
+.done h3{font:400 2.4rem/1 var(--fraktur);margin-bottom:.6rem}
+.done p{color:var(--ash)}
+.err{color:#ff9aa4;font-style:italic}
+@media (max-width:40rem){.form .row2{grid-template-columns:1fr}}
+@media (max-width:60rem){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .help .cath,.help .tower,.beats .vineL,.beats .vineR{display:none}
+}
+@media (max-width:40rem){
+  body{font-size:1.15rem}
+  header.top .wrap{justify-content:center}
+  nav a{padding:.5rem .5rem;font-size:1.05rem}
+  .hero .cta .btn{flex:1 1 100%}
+  .hero .tower,.hero .cath{opacity:.3}
+  .grid{gap:1.1rem}
+  .tile .btn{font-size:.98rem;padding-inline:.6rem}
+  .track{grid-template-columns:auto 1fr;grid-template-areas:"play info" "buy buy";padding-inline:.1rem}
+  .track .play{grid-area:play}.track .info{grid-area:info}.track .buy{grid-area:buy}
+  .track .buy .btn{width:100%}
+  .player{padding:1.2rem 1rem}
+  .card{padding:4.2rem 3.1rem 4rem}
+  #bar .wrap{grid-template-columns:auto 1fr auto;gap:.7rem}
+  #barTitle{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero .inner{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="endelly, back to top"><img src="eye.webp" alt="">endelly</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#covers">Covers</a></li>
+        <li><a href="#beats">Beats</a></li>
+        <li><a href="#prices">Prices</a></li>
+        <li><a href="#help">Help</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="deco bg" aria-hidden="true"></div>
+  <img class="deco web" src="web-top.webp" alt="" aria-hidden="true">
+  <img class="deco tower" src="tower.webp" alt="" aria-hidden="true">
+  <img class="deco cath" src="cathedral.webp" alt="" aria-hidden="true">
+  <div class="deco fog" aria-hidden="true"></div>
+  <img class="corner tl" src="corner.webp" alt="" aria-hidden="true">
+  <img class="corner tr" src="corner.webp" alt="" aria-hidden="true">
+  <img class="corner bl" src="corner.webp" alt="" aria-hidden="true">
+  <img class="corner br" src="corner.webp" alt="" aria-hidden="true">
+  <div class="inner">
+    <img class="crest" src="crest.webp" alt="" aria-hidden="true">
+    <h1 id="hero-title">endelly</h1>
+    <div class="quote"><p class="who">Beatmaker &amp; graphic designer</p><p class="style">Mystical dark style</p></div>
+    <div class="cta">
+      <a class="btn" href="#covers">See covers</a>
+      <a class="btn ghost" href="#beats">Listen to beats</a>
+    </div>
+  </div>
+</section>
+
+<section class="covers" id="covers" aria-labelledby="covers-title">
+  <div class="deco tex" aria-hidden="true"></div>
+  <img class="deco webc" src="web-corner.webp" alt="" aria-hidden="true">
+  <img class="deco webl" src="web-corner.webp" alt="" aria-hidden="true">
+  <div class="wrap">
+    <div class="head">
+      <img class="crest" src="crest.webp" alt="" aria-hidden="true">
+      <h2 id="covers-title">Covers</h2>
+      <p>Ready-made, 3000 &times; 3000 px. Each one is sold once, then it is gone.</p>
+    </div>
+    <div class="grid" id="coverGrid"></div>
+    <div class="more">
+      <p>Need a cover made for your track? $66, ready in 1 to 3 days. Fill in a short form and we do everything by email.</p>
+      <button class="btn ghost" type="button" id="customCover">Order a custom cover</button>
+    </div>
+  </div>
+</section>
+
+<section class="beats" id="beats" aria-labelledby="beats-title">
+  <div class="deco forest" aria-hidden="true"></div>
+  <img class="deco vineL" src="vine.webp" alt="" aria-hidden="true">
+  <img class="deco vineR" src="vine.webp" alt="" aria-hidden="true">
+  <div class="wrap">
+    <div class="head">
+      <img class="crest" src="crest.webp" alt="" aria-hidden="true">
+      <h2 id="beats-title">Beats</h2>
+      <p>Dark trap, ambient and rage. Press play, then Buy.</p>
+    </div>
+    <div class="player">
+      <img class="pc tl" src="corner.webp" alt="" aria-hidden="true">
+      <img class="pc tr" src="corner.webp" alt="" aria-hidden="true">
+      <img class="pc bl" src="corner.webp" alt="" aria-hidden="true">
+      <img class="pc br" src="corner.webp" alt="" aria-hidden="true">
+      <ul class="tracks" id="tracks"></ul>
+      <p class="empty" id="beats-empty" hidden>New beats are on the way. <a id="beatsMail" href="#contact">Write to me</a> and I will send you the list.</p>
+    </div>
+    <p class="note">Previews here are MP3 with extra voice tags. The file you buy is clean apart from one short producer tag.</p>
+  </div>
+</section>
+
+<section class="prices" id="prices" aria-labelledby="prices-title">
+  <div class="deco tex" aria-hidden="true"></div>
+  <img class="deco castle2" src="island.webp" alt="" aria-hidden="true">
+  <div class="wrap">
+    <div class="head">
+      <img class="crest" src="crest.webp" alt="" aria-hidden="true">
+      <h2 id="prices-title">Prices</h2>
+      <p>US dollars. One payment, no subscription.</p>
+    </div>
+    <div class="group">
+      <h3>Covers</h3><img class="orn" src="divider.webp" alt="" aria-hidden="true">
+      <div class="cards" id="coverCards"></div>
+    </div>
+    <div class="group">
+      <h3>Beats</h3><img class="orn" src="divider.webp" alt="" aria-hidden="true">
+      <div class="cards" id="beatCards"></div>
+    </div>
+  </div>
+</section>
+
+<section class="help" id="help" aria-labelledby="help-title">
+  <img class="deco webc" src="web-corner.webp" alt="" aria-hidden="true">
+  <img class="deco cath" src="cathedral.webp" alt="" aria-hidden="true">
+  <img class="deco tower" src="tower.webp" alt="" aria-hidden="true">
+  <div class="narrow">
+    <div class="head">
+      <img class="crest" src="crest.webp" alt="" aria-hidden="true">
+      <h2 id="help-title">Questions</h2>
+    </div>
+    <div class="faq">
+      <details><summary>How do I get my files?</summary><p>Press Buy and you go to my Ko-fi shop. After you pay there, the download links appear right on the page and in your receipt email. Check your spam folder if the email does not show up.</p></details>
+      <details><summary>Does the beat I buy have a voice tag?</summary><p>The preview here is an MP3 with two voice tags. The file you buy keeps one short producer tag, so listeners know who made the beat.</p></details>
+      <details><summary>Which license do I need?</summary><p>For a first release with a small audience, the MP3 or WAV lease is enough. If you plan lots of streams, paid videos or live shows, take Unlimited. If you want the beat to be only yours, ask for Exclusive. The rules for each license are shown when you press Buy, and the license choice is made in the shop.</p></details>
+      <details><summary>Can someone else buy the same cover?</summary><p>No. Each ready-made cover is sold once and then removed from the site.</p></details>
+      <details><summary>How do custom orders work?</summary><p>Press "Fill in the form" under Custom cover or Custom beat and describe what you need. I reply by email with the price and a PayPal link. Drafts, changes and final files all come by email.</p></details>
+      <details><summary>How do I pay?</summary><p>Payments go through Ko-fi, with PayPal or a card. You do not need an account on this site.</p></details>
+      <details><summary>Something is wrong with my file.</summary><p>Write to me with your order details and I will send a new one.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <img class="deco island" src="island.webp" alt="" aria-hidden="true">
+  <div class="wrap">
+    <div class="frame-box">
+      <img class="fr" src="thorns.webp" alt="" aria-hidden="true">
+      <img class="eye" src="eye.webp" alt="" aria-hidden="true">
+      <h2 id="contact-title">Write to me</h2>
+      <p>Questions, custom work, exclusive deals.</p>
+      <a class="mail" id="mail" href="#contact"></a>
+      <div class="links" id="links"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <img class="graves" src="graves.webp" alt="" aria-hidden="true">
+  <p><span id="credit"></span> &copy; <span id="year"></span></p>
+</footer>
+
+<div id="bar" hidden>
+  <div class="wrap">
+    <button id="barToggle" type="button" aria-label="Play or pause"><svg viewBox="0 0 16 16" aria-hidden="true" id="barIcon"></svg></button>
+    <span id="barTitle"></span>
+    <input id="seek" type="range" min="0" max="1000" value="0" aria-label="Seek">
+    <span id="barTime">0:00 / 0:00</span>
+  </div>
+</div>
+<audio id="audio" preload="none"></audio>
+
+<dialog id="order" aria-labelledby="orderTitle">
+  <div class="d-in" id="orderBody"></div>
+</dialog>
+
+<script>
+/* ===== Edit block: fill this in, nothing else needs touching ===== */
+const CONFIG = {
+  email: "endellybeats@gmail.com",        // your contact email
+  paypalMe: "",     // e.g. "https://paypal.me/yourname"
+  shop: "https://ko-fi.com/endelly/shop",         // your Ko-fi shop link
+  formEmail: "endellybeats@gmail.com",    // where order forms are sent (via formsubmit.co). Usually the same as email
+  instagram: "",    // full link
+  youtube: "",      // full link
+  credit: "Prod. endelly"
+};
+/* 8 cover slots. Fill src, title and (later) url to the shop item. Empty slots show "Coming soon". */
+const COVERS = [
+  {src:"satan.jpg",  title:"satan",  url:"https://ko-fi.com/s/2b3e2de65b"},
+  {src:"electro.jpg",title:"electro",url:"https://ko-fi.com/s/5ead8fabbf"},
+  {src:"blood.jpg",  title:"blood",  url:"https://ko-fi.com/s/ff060c7593"},
+  {src:"dinner.jpg", title:"dinner", url:"https://ko-fi.com/s/c62f6f7a43"}
+];
+/* each beat: {title, bpm, key, mood, file:"name.mp3", url:"shop link", sold:false} */
+const BEATS = [
+  {title:"sadness",      mood:"Dark trap", file:"sadness.mp3",       url:"https://ko-fi.com/s/4740ba24a8"},
+  {title:"russia winter",mood:"Dark trap", file:"russia-winter.mp3", url:"https://ko-fi.com/s/348b948799"},
+  {title:"psycho",       mood:"Dark trap", file:"psycho.mp3",        url:"https://ko-fi.com/s/c9e5b32605"},
+  {title:"pills",        mood:"Dark trap", file:"pills.mp3",         url:"https://ko-fi.com/s/97f66d397a"},
+  {title:"egypt",        mood:"Dark trap", file:"egypt.mp3",         url:"https://ko-fi.com/s/77175b6a99"},
+  {title:"darkness",     mood:"Dark trap", file:"darkness.mp3",      url:"https://ko-fi.com/s/543d3d95a8"}
+];
+const COVER_PRICE = 39;          // ready-made cover alone
+const CUSTOM_COVER_PRICE = 66;   // cover made to order
+const CUSTOM_BEAT_FROM = 150;    // beat made to order, starting price
+const LICENSES = [
+  { id:"mp3", name:"MP3 lease", price:29, rules:["MP3 file, one short producer tag","Up to 25,000 streams on all platforms","One music video, not monetized","Credit in the title: (prod. endelly)","Not exclusive: others can lease the same beat","You may not resell or give away the beat"] },
+  { id:"wav", name:"WAV lease", price:55, rules:["WAV and MP3 files, one short producer tag","Up to 100,000 streams on all platforms","One monetized music video","Credit in the title: (prod. endelly)","Not exclusive: others can lease the same beat","You may not resell or give away the beat"] },
+  { id:"unl", name:"Unlimited", price:110, rules:["WAV and MP3 files, one short producer tag","Unlimited streams and sales","Monetized videos and live shows","Credit in the title: (prod. endelly)","Not exclusive: others can lease the same beat","You may not resell or give away the beat"] },
+  { id:"ex",  name:"Exclusive", price:300, from:true, quote:true, rules:["Everything in Unlimited, plus stems (separate tracks)","The beat is removed from the store for good","Nobody else can buy it after you","A written contract is signed before delivery","Price depends on the beat, from $300"] }
+];
+const COVER_RULES = ["Clean 3000 x 3000 px image, no watermark","Full rights to use it anywhere: streaming, YouTube, social media, merch, commercial releases","Delivered instantly after payment","Sold once, then removed from the shop","You may not resell the cover as artwork"];
+/* ===== End of edit block ===== */
+
+const $ = id => document.getElementById(id);
+const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+const pauseIcon = '<path d="M3 2h3.5v12H3zM9.5 2H13v12H9.5z"/>';
+const playIcon = '<path d="M4 2l10 6-10 6z"/>';
+const mailTo = (subject, body) => CONFIG.email
+  ? "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) : "#contact";
+const lowest = Math.min(...LICENSES.filter(l => !l.quote).map(l => l.price));
+
+$("credit").textContent = CONFIG.credit;
+$("year").textContent = new Date().getFullYear();
+
+/* contact */
+const mail = $("mail");
+mail.textContent = CONFIG.email || "your@email.here";
+mail.href = mailTo("Hello endelly", "");
+$("beatsMail").href = mailTo("Beat list please", "");
+[["Ko-fi shop", CONFIG.shop], ["Instagram", CONFIG.instagram], ["YouTube", CONFIG.youtube]].forEach(([n, u]) => {
+  if (!u) return;
+  const a = el("a", "btn ghost small", n); a.href = u; a.rel = "noopener"; $("links").appendChild(a);
+});
+
+/* covers grid */
+COVERS.forEach((c, i) => {
+  const f = el("figure", "tile"), art = el("div", "art");
+  if (c.src) { const im = el("img", "pic"); im.src = c.src; im.alt = "Cover art: " + (c.title || "cover " + (i + 1)); im.loading = "lazy"; art.append(im); }
+  else { const s = el("div", "soon"); const e = el("img"); e.src = "eye.webp"; e.alt = ""; s.append(e, el("span", null, "Coming soon")); art.append(s); }
+  const fr = el("img", "fr"); fr.src = "tileframe.webp"; fr.alt = ""; fr.setAttribute("aria-hidden", "true"); art.append(fr);
+  const cap = el("figcaption");
+  if (c.src) cap.append(el("span", "nm", c.title || "Cover " + (i + 1)));
+  let btn;
+  if (c.sold) { btn = el("button", "btn small ghost", "Sold"); btn.disabled = true; }
+  else if (!c.src) { btn = el("button", "btn small ghost", "Coming soon"); btn.disabled = true; }
+  else { btn = el("button", "btn small", "Buy $" + COVER_PRICE); btn.addEventListener("click", () => openCover(c)); }
+  btn.type = "button"; cap.append(btn);
+  f.append(art, cap); $("coverGrid").append(f);
+});
+$("customCover").addEventListener("click", () => openForm("cover"));
+
+/* player */
+const audio = $("audio"), bar = $("bar"), seek = $("seek");
+let current = null, seeking = false;
+const fmt = s => isFinite(s) ? Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0") : "0:00";
+function setIcons() {
+  const playing = !audio.paused;
+  $("barIcon").innerHTML = playing ? pauseIcon : playIcon;
+  document.querySelectorAll(".play").forEach(b => {
+    const on = playing && b.dataset.file === current;
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+    b.firstElementChild.innerHTML = on ? pauseIcon : playIcon;
+  });
+}
+function toggle(beat) {
+  if (!beat.file) return;
+  if (current === beat.file) { audio.paused ? audio.play() : audio.pause(); return; }
+  current = beat.file; audio.src = beat.file; audio.play();
+  $("barTitle").textContent = beat.title; bar.hidden = false; document.body.classList.add("playing");
+}
+["play", "pause", "ended"].forEach(e => audio.addEventListener(e, setIcons));
+audio.addEventListener("timeupdate", () => {
+  if (!seeking && audio.duration) seek.value = audio.currentTime / audio.duration * 1000;
+  $("barTime").textContent = fmt(audio.currentTime) + " / " + fmt(audio.duration);
+});
+seek.addEventListener("input", () => { seeking = true; if (audio.duration) audio.currentTime = seek.value / 1000 * audio.duration; });
+seek.addEventListener("change", () => { seeking = false; });
+$("barToggle").addEventListener("click", () => audio.paused ? audio.play() : audio.pause());
+
+/* beats */
+BEATS.forEach(beat => {
+  const li = el("li", "track");
+  const b = el("button", "play"); b.type = "button"; b.dataset.file = beat.file || "";
+  b.setAttribute("aria-label", "Play " + beat.title); b.setAttribute("aria-pressed", "false");
+  b.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true">' + playIcon + "</svg>";
+  b.addEventListener("click", () => toggle(beat));
+  if (!beat.file) { b.disabled = true; b.title = "Preview coming soon"; }
+  const info = el("div", "info");
+  info.append(el("div", "t-title", beat.title), el("div", "t-meta", [beat.mood, beat.bpm && beat.bpm + " BPM", beat.key].filter(Boolean).join(", ")));
+  const buy = el("div", "buy");
+  if (beat.sold) { buy.className += " sold"; buy.textContent = "Sold"; }
+  else { const btn = el("button", "btn small", "Buy from $" + lowest); btn.type = "button"; btn.addEventListener("click", () => openBeat(beat)); buy.append(btn); }
+  li.append(b, info, buy); $("tracks").append(li);
+});
+if (!BEATS.length) { $("tracks").hidden = true; $("beats-empty").hidden = false; }
+
+/* price cards */
+function card(o) {
+  const c = el("article", "card" + (o.promo ? " promo" : ""));
+  const fr = el("img", "fr"); fr.src = "thorns.webp"; fr.alt = ""; fr.setAttribute("aria-hidden", "true"); c.append(fr);
+  if (o.ribbon) c.append(el("span", "ribbon", o.ribbon));
+  c.append(el("h4", null, o.name));
+  const a = el("div", "amount"); a.innerHTML = (o.from ? "<small>from </small>" : "") + "$" + o.price; c.append(a);
+  if (o.was) c.append(el("div", "was", "$" + o.was));
+  const ul = el("ul"); o.points.forEach(p => ul.append(el("li", null, p))); c.append(ul);
+  const b = el("button", "btn wide" + (o.ghost ? " ghost" : ""), o.cta); b.type = "button"; b.addEventListener("click", o.go); c.append(b);
+  return c;
+}
+$("coverCards").append(
+  card({ name:"Ready-made cover", price:COVER_PRICE, points:["Pick one from the covers above","Delivered right after payment","Sold once, then removed"], cta:"See covers", ghost:true, go:() => location.hash = "#covers" }),
+  card({ name:"Custom cover", price:CUSTOM_COVER_PRICE, points:["Made for your track from your idea","Fill in a short form, all by email","Ready in 1 to 3 days, two rounds of changes"], cta:"Fill in the form", go:() => openForm("cover") })
+);
+LICENSES.forEach(l => $("beatCards").append(card({ name:l.name, price:l.price, from:l.from, points:l.rules.slice(0, 3), cta:l.quote ? "Get a quote" : "Buy " + l.name, ghost:l.quote, go:() => openBeat(null, l.id) })));
+$("beatCards").append(card({ name:"Custom beat", price:CUSTOM_BEAT_FROM, from:true, points:["Made from your references","Fill in a short form, all by email","I reply with the exact price"], cta:"Fill in the form", go:() => openForm("beat") }));
+
+/* dialogs */
+const dlg = $("order"), body = $("orderBody");
+function head(title, sub) {
+  body.innerHTML = "";
+  const cr = el("img", "d-crest"); cr.src = "crest.webp"; cr.alt = ""; body.append(cr);
+  const h = el("div", "d-head"), t = el("div");
+  t.append(el("h2", null, title), el("p", null, sub));
+  const x = el("button", "x", "×"); x.type = "button"; x.setAttribute("aria-label", "Close"); x.addEventListener("click", () => dlg.close());
+  h.append(t, x); body.append(h);
+}
+function rulesBox(title, list) {
+  const r = el("div", "rules"); r.append(el("strong", null, title));
+  const ul = el("ul"); list.forEach(x => ul.append(el("li", null, x))); r.append(ul); return r;
+}
+function payBlock(total, was, subject, text, quote, url) {
+  const box = el("div");
+  const t = el("div", "total"); t.append(el("span", null, quote ? "Price" : "Total"));
+  const s = el("span", "sum"); s.innerHTML = (quote ? "from " : "") + "$" + total; t.append(s); box.append(t);
+  const go = el("div", "d-go");
+  const link = url || CONFIG.shop;
+  const canPay = !quote && link;
+  if (canPay) {
+    const n = el("div", "spooky");
+    n.append(el("b", null, "Don't be spooky!"), el("span", null, "In a blink you will be teleported to my Ko-fi shop. It is the real one, locked and sealed, nothing to fear. Pay there and your files fall straight into your hands. No ghosts, no hidden fees, no cursed small print."));
+    box.append(n);
+    const a = el("a", "btn", "Teleport me to the shop");
+    a.href = link; a.target = "_blank"; a.rel = "noopener"; go.append(a);
+  }
+  const e = el("a", "btn" + (canPay ? " ghost" : ""), quote ? "Email me for a quote" : (canPay ? "Ask me a question" : "Email me to buy"));
+  e.href = mailTo(subject, text); go.append(e); box.append(go);
+  box.append(el("p", "d-note", quote ? "Tell me what you need. I will reply with the price and the next steps." : "You pay on Ko-fi with PayPal or a card. Files are delivered right after payment."));
+  return box;
+}
+
+function openBeat(beat, pick) {
+  head(beat ? beat.title : "Beat license", "Choose how you will use the beat");
+  let chosenBeat = beat;
+  const avail = BEATS.filter(b => !b.sold);
+  if (!beat && avail.length) {
+    body.append(el("label", "d-label", "Which beat?"));
+    const sel = el("select"); sel.id = "beatPick";
+    avail.forEach((b, i) => { const o = el("option", null, b.title); o.value = i; sel.append(o); });
+    sel.addEventListener("change", () => { chosenBeat = avail[sel.value]; draw(); }); chosenBeat = avail[0];
+    body.append(sel);
+  }
+  const opts = el("div", "opts"); opts.setAttribute("role", "radiogroup"); opts.setAttribute("aria-label", "License");
+  LICENSES.forEach((l, k) => {
+    const lab = el("label", "opt"); const r = el("input"); r.type = "radio"; r.name = "lic"; r.value = l.id;
+    r.checked = pick ? l.id === pick : k === 0; r.addEventListener("change", draw);
+    lab.append(r, el("span", null, l.name), el("span", null, (l.from ? "from " : "") + "$" + l.price)); opts.append(lab);
+  });
+  body.append(opts);
+  const dyn = el("div"); body.append(dyn);
+  function draw() {
+    const l = LICENSES.find(x => x.id === body.querySelector('input[name="lic"]:checked').value);
+    dyn.innerHTML = ""; dyn.append(rulesBox(l.name + " rules", l.rules));
+    const total = l.price;
+    const name = chosenBeat ? chosenBeat.title : "";
+    dyn.append(payBlock(total, 0, l.name + (name ? ": " + name : ""),
+      "Beat: " + name + "\nLicense: " + l.name + "\nYour artist name: \n", l.quote, chosenBeat && chosenBeat.url));
+  }
+  draw(); dlg.showModal();
+}
+
+function openCover(cover) {
+  head(cover.title || "Cover", "Ready-made cover, sold once");
+  if (cover && cover.src) { const im = el("img"); im.src = cover.src; im.alt = ""; im.style.cssText = "width:9rem;aspect-ratio:1;object-fit:cover;margin:1rem auto 0;border:1px solid var(--rule-hi)"; body.append(im); }
+  body.append(el("div", null)); body.lastChild.style.height = "1rem";
+  body.append(rulesBox("What you get", COVER_RULES));
+  const dyn = el("div"); body.append(dyn);
+  const what = cover.title || "ready-made cover";
+  function draw() {
+    dyn.innerHTML = "";
+    dyn.append(payBlock(COVER_PRICE, 0, "Cover: " + what, "Cover: " + what + "\nYour artist name: \n", false, cover.url));
+  }
+  draw(); dlg.showModal();
+}
+
+/* order forms: custom cover and custom beat. Everything goes to your email, nothing direct. */
+const FORMS = {
+  cover: { title:"Custom cover", sub:"$" + CUSTOM_COVER_PRICE + ". Ready in 1 to 3 days, two rounds of changes.",
+    fields:[["name","Artist name",1],["email","Your email",1,"email"],["track","Track or release name",1],["deadline","When do you need it?",0],
+      ["idea","Idea and mood",1,"area","What should the cover show? What feeling?"],["text","Text on the cover",0,"","For example: artist name and title, or no text"],
+      ["colors","Colors",0],["refs","References",0,"area","Links to pictures you like: Pinterest, Google Drive, Imgur"]],
+    note:"I reply by email with a PayPal link. Work starts after payment. Drafts and changes also go by email." },
+  beat: { title:"Custom beat", sub:"From $" + CUSTOM_BEAT_FROM + ". I reply with the exact price.",
+    fields:[["name","Artist name",1],["email","Your email",1,"email"],["refs","Reference tracks",1,"area","Links to 1 to 3 songs with the sound you want"],
+      ["mood","Style and mood",1,"area","Dark trap, rage, ambient, slow, fast..."],["bpm","Tempo (BPM)",0],["deadline","When do you need it?",0],
+      ["license","How will you use it?",0,"","Release on streaming, video, exclusive rights..."],["notes","Anything else",0,"area"]],
+    note:"I reply by email with the price and a PayPal link. The demo and the final files also go by email." }
+};
+function openForm(kind) {
+  const F = FORMS[kind];
+  head(F.title, F.sub);
+  const f = el("form", "form"); f.noValidate = false;
+  F.fields.forEach(([name, label, req, type, hint]) => {
+    const l = el("label"); l.append(document.createTextNode(label + (req ? "" : " (optional)")));
+    if (hint) l.append(el("small", null, hint));
+    const inp = el(type === "area" ? "textarea" : "input"); inp.name = name; if (type && type !== "area") inp.type = type; if (req) inp.required = true;
+    if (name === "email") inp.autocomplete = "email";
+    l.append(inp); f.append(l);
+  });
+  f.append(el("p", "d-note", F.note));
+  const msg = el("p", "err"); msg.hidden = true; f.append(msg);
+  const send = el("button", "btn wide", "Send the form"); send.type = "submit"; f.append(send);
+  f.addEventListener("submit", async e => {
+    e.preventDefault();
+    if (!f.reportValidity()) return;
+    const data = Object.fromEntries(new FormData(f).entries());
+    const subject = F.title + " request from " + data.name;
+    const text = F.fields.map(([n, label]) => label + ": " + (data[n] || "-")).join("\n");
+    if (!CONFIG.formEmail) { location.href = mailTo(subject, text); return; }
+    send.disabled = true; send.textContent = "Sending...";
+    try {
+      const r = await fetch("https://formsubmit.co/ajax/" + CONFIG.formEmail, { method:"POST",
+        headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+        body: JSON.stringify(Object.assign({ _subject:subject, _replyto:data.email, _template:"table" }, data)) });
+      if (!r.ok) throw new Error(r.status);
+      f.replaceWith(Object.assign(el("div", "done"), { innerHTML:"" }));
+      const d = body.querySelector(".done"); d.append(el("h3", null, "Sent"), el("p", null, "Thank you. I will write to " + data.email + " within a day. Check your spam folder too."));
+    } catch (err) {
+      send.disabled = false; send.textContent = "Send the form";
+      msg.hidden = false; msg.textContent = "The form did not send. Press the button again, or email me at " + (CONFIG.email || "the address below") + ".";
+    }
+  });
+  body.append(f); dlg.showModal();
+}
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+setIcons();
+</script>
+</body>
+</html>
