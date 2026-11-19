@@ -207,7 +207,7 @@ dialog::backdrop{background:rgba(0,0,0,.85)}
 .d-in{padding:1.9rem 1.7rem 1.7rem}
 .d-crest{width:16rem;margin:0 auto .6rem;opacity:.8}
 .d-head{display:flex;justify-content:space-between;align-items:start;gap:1rem}
-.d-head h2{font:400 2.6rem/1 var(--fraktur)}
+.d-head h2{font:400 2.6rem/1.1 var(--fraktur);letter-spacing:.04em;font-variant-ligatures:none;font-kerning:none}
 .d-head p{color:var(--ash);font-style:italic;margin-top:.35rem}
 .x{flex:none;width:2.8rem;height:2.8rem;border-radius:50%;border:1px solid var(--rule-hi);background:none;color:var(--bone);font-size:1.5rem;line-height:1;cursor:pointer}
 .x:hover{border-color:var(--bone)}
@@ -453,12 +453,12 @@ const COVERS = [
 ];
 /* each beat: {title, bpm, key, mood, file:"name.mp3", url:"shop link", sold:false} */
 const BEATS = [
-  {title:"sadness",      file:"sadness.mp3", img:"t-sadness.jpg", big:"beats/b-sadness.jpg",       url:"https://ko-fi.com/s/4740ba24a8"},
-  {title:"russia winter",file:"russia-winter.mp3", img:"t-russia-winter.jpg", big:"beats/b-russia-winter.jpg", url:"https://ko-fi.com/s/348b948799"},
-  {title:"psycho",       file:"psycho.mp3", img:"t-psycho.jpg", big:"beats/b-psycho.jpg",        url:"https://ko-fi.com/s/c9e5b32605"},
-  {title:"pills",        file:"pills.mp3", img:"t-pills.jpg", big:"beats/b-pills.jpg",         url:"https://ko-fi.com/s/97f66d397a"},
-  {title:"egypt",        file:"egypt.mp3", img:"t-egypt.jpg", big:"beats/b-egypt.jpg",         url:"https://ko-fi.com/s/77175b6a99"},
-  {title:"darkness",     file:"darkness.mp3", img:"t-darkness.jpg", big:"beats/b-darkness.jpg",      url:"https://ko-fi.com/s/543d3d95a8"}
+  {title:"sadness",      file:"sadness.mp3", img:"t-sadness.jpg", url:"https://ko-fi.com/s/4740ba24a8"},
+  {title:"russia winter",file:"russia-winter.mp3", img:"t-russia-winter.jpg", url:"https://ko-fi.com/s/348b948799"},
+  {title:"psycho",       file:"psycho.mp3", img:"t-psycho.jpg", url:"https://ko-fi.com/s/c9e5b32605"},
+  {title:"pills",        file:"pills.mp3", img:"t-pills.jpg", url:"https://ko-fi.com/s/97f66d397a"},
+  {title:"egypt",        file:"egypt.mp3", img:"t-egypt.jpg", url:"https://ko-fi.com/s/77175b6a99"},
+  {title:"darkness",     file:"darkness.mp3", img:"t-darkness.jpg", url:"https://ko-fi.com/s/543d3d95a8"}
 ];
 const COVER_PRICE = 39;          // ready-made cover alone
 const CUSTOM_COVER_PRICE = 66;   // cover made to order
@@ -619,7 +619,6 @@ function payBlock(total, was, subject, text, quote, url) {
 
 function openBeat(beat, pick) {
   head(beat ? beat.title : "Beat license", "Choose how you will use the beat");
-  if (beat && beat.big) { const im = el("img"); im.src = beat.big; im.alt = beat.title; im.width = 500; im.height = 500; im.style.cssText = "display:block;width:min(100%,500px);height:auto;aspect-ratio:1;object-fit:cover;margin:1rem auto;border:1px solid var(--rule-hi)"; body.append(im); }
   let chosenBeat = beat;
   const avail = BEATS.filter(b => !b.sold);
   if (!beat && avail.length) {
